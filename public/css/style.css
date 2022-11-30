@@ -1,0 +1,265 @@
+ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+textarea.form-control {
+    height: 50px;
+    padding: 0 20px;
+    vertical-align: middle;
+    background: #f7f7f7;
+    border: none;
+    font-size: 16px;
+    color: #888;
+    box-shadow: none;
+    transition: all .3s;
+}
+
+textarea,
+textarea.form-control {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 30px;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+textarea.form-control:focus {
+    background: #fff;
+}
+
+.btn {
+    padding: 0 20px;
+    border: 0;
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 50px;
+    transition: all .3s;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    font-weight: 300;
+    color: #888;
+    line-height: 30px;
+    text-align: center;
+    background-color: #fff;
+    padding-bottom: 100px;
+}
+
+strong { font-weight: 500; }
+
+a, a:hover, a:focus {
+    color: #666;
+    text-decoration: none;
+    transition: all .3s;
+}
+
+h1, h2 {
+    margin-top: 10px;
+    font-size: 38px;
+    font-weight: 100;
+    color: #555;
+    line-height: 50px;
+}
+
+h3 {
+    font-size: 22px;
+    font-weight: 300;
+    color: #555;
+    line-height: 30px;
+}
+
+img { max-width: 100%; }
+
+.logo {
+    margin: 8vw auto;
+}
+
+.logo-img {
+    max-width: 250px;
+}
+
+.form-top {
+    overflow: hidden;
+    padding: 0 25px 15px 25px;
+    background: #444;
+    background: rgba(0, 0, 0, 0.35);
+    -moz-border-radius: 4px 4px 0 0; -webkit-border-radius: 4px 4px 0 0; border-radius: 4px 4px 0 0;
+    text-align: left;
+}
+
+.form-top-left {
+    float: left;
+    width: 75%;
+    padding-top: 25px;
+}
+
+.form-top-left h3 { margin-top: 0; color: #fff; }
+.form-top-left p { opacity: 0.8; color: #fff; }
+
+.form-top-right {
+    float: left;
+    width: 25%;
+    padding-top: 5px;
+    font-size: 66px;
+    color: #fff;
+    line-height: 100px;
+    text-align: right;
+    opacity: 0.3;
+}
+
+.form-bottom {
+    padding: 25px;
+    border: 1px solid rgba(0,0,0,0.3);
+    border-radius: 0 0 4px 4px;
+    text-align: left;
+}
+
+.form-bottom form textarea {
+    height: 100px;
+}
+
+.form-bottom form button.btn {
+    width: 100%;
+}
+
+.form-bottom form .input-error {
+    border-color: #de615e;
+}
+
+.forgot-password-link {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 0.9em;
+}
+
+.header-line {
+    height: 10px;
+}
+
+.header-line.brown {
+    background-color: #6e361f;
+}
+
+.header-line.blue {
+    background-color: #2b388a;
+}
+
+.header-line.pink {
+    background-color: #eb71ac;
+}
+
+.header-line.green {
+    background-color: #17b270;
+}
+
+.header-line.orange {
+    background-color: #ed8024;
+}
+
+.header-line.red {
+    background-color: #eb3d38;
+}
+
+.institutions {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.institutions a {
+    color: #333;
+    display: block;
+    padding: 10px;
+}
+
+.institutions li {
+    font-size: 1.5em;
+    width: 100%;
+    margin: 0.2em 0;
+    text-align: center;
+}
+
+.institution-login {
+    text-align: center;
+    margin-top: 1.5em;
+}
+
+.institution-login .btn {
+    width: 100%;
+}
+
+.error .title {
+    font-size: 1.1em;
+}
+
+.error .message {
+    font-size: 0.8em;
+}
+
+.error .help-message {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: #ccc;
+}
+
+.error .help-message a {
+    color: #999999;
+    text-decoration: underline;
+}
+
+.terms-alert {
+    text-align: center;
+}
+
+.terms-alert h2 {
+    font-size: 2em;
+}
+
+.terms-alert .icon {
+    font-size: 40px;
+}
+
+.token {
+    font-size: 4em;
+}
+
+.ride-content {
+    text-align: center;
+}
+
+.ride-driver {
+    font-size: 1.1em;
+}
+
+.open-app-section {
+    margin-top: 20px;
+}
+
+.open-app-button {
+    padding: 15px 25px;
+    font-size: 1.1em;
+}
+
+.store-links {
+    margin-top: 20px;
+}
+
+.store-button {
+    width: 130px;
+    display: inline-block;
+    margin: 10px auto;
+}
+
+.home .links a {
+    font-size: 0.8em;
+    color: #222;
+}

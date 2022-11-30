@@ -1,0 +1,48 @@
+<?php
+
+if (!function_exists('getNotificationChannels')) {
+    function getNotificationChannels()
+    {
+        $env = env('APP_ENV');
+        if (($env == 'production' || $env == 'staging') && !empty(env('SLACK_WEBHOOK_URL'))) {
+            return ['slack'];
+        }
+
+        return [];
+    }
+}
+
+return [
+
+    /*
+     * The notification that will be sent when a job fails.
+     */
+    'notification' => \Spatie\FailedJobMonitor\Notification::class,
+
+    /*
+     * The notifiable to which the notification will be sent. The default
+     * notifiable will use the mail and slack configuration specified
+     * in this config file.
+     */
+    'notifiable' => \Spatie\FailedJobMonitor\Notifiable::class,
+
+    /*
+     * By default notifications are sent for all failures. You can pass a callable to filter
+     * out certain notifications. The given callable will receive the notification. If the callable
+     * return false, the notification will not be sent.
+     */
+    'notificationFilter' => null,
+
+    /*
+     * The channels to which the notification will be sent.
+     */
+    'channels' => getNotificationChannels(),
+
+    'mail' => [
+        'to' => '',
+    ],
+
+    'slack' => [
+        'webhook_url' => env('SLACK_WEBHOOK_URL'),
+    ],
+];

@@ -1,0 +1,106 @@
+version: 2
+
+references:
+  defaults: &defaults
+    working_directory: /tmp/caronae
+    docker:
+      - image: docker:stable-git
+
+  restore_repo: &restore_repo
+    restore_cache:
+      keys:
+        - v1-repo-{{ .Branch }}-{{ .Revision }}
+        - v1-repo-{{ .Branch }}
+        - v1-repo
+
+jobs:
+  test:
+    working_directory: /tmp/caronae
+    docker:
+      - image: caronae/php:latest
+        environment:
+          APP_ENV: testing
+          TESTING_DB_PORT: 5432
+      - image: postgres:9.6-alpine
+        environment:
+          POSTGRES_USER: caronae
+          POSTGRES_DB: caronae_testing
+    steps:
+      - checkout
+      - run:
+          name: Persist build number
+          command: ./scripts/calcrev.sh > build_number.txt
+      - run:
+          name: Install dependencies
+          command: composer install --no-interaction --no-ansi
+      - run:
+          name: Run tests
+          command: |
+            mkdir -p ~/phpunit
+            ./vendor/bin/phpunit --debug --log-junit ~/phpunit/junit.xml
+      - store_test_results:
+          path: ~/phpunit
+      - store_artifacts:
+          path: ~/phpunit
+      - save_cache:
+          key: v1-repo-{{ .Branch }}-{{ .Revision }}
+          paths:
+            - .
+
+  build:
+    <<: *defaults
+    steps:
+      - *restore_repo
+      - setup_remote_docker
+      - run:
+          name: Docker build
+          command: ./scripts/build.sh
+
+  deploy-dev:
+    <<: *defaults
+    steps:
+      - *restore_repo
+      - setup_remote_docker
+      - run:
+          name: Tag image as develop
+          command: ./scripts/tag.sh develop
+      - run:
+          name: Deploy to dev
+          command: |
+            ssh -o StrictHostKeyChecking=No -A $CARONAE_DEV_USER@$CARONAE_DEV_HOST -p $CARONAE_DEV_PORT bash -s < scripts/update_images.sh "develop"
+
+  deploy-prod:
+    <<: *defaults
+    steps:
+      - *restore_repo
+      - setup_remote_docker
+      - run:
+          name: Tag image as latest
+          command: ./scripts/tag.sh latest
+      - run:
+          name: Deploy to prod
+          command: |
+            ssh -o StrictHostKeyChecking=No -A $CARONAE_PROD_USER@$CARONAE_PROD_HOST -p $CARONAE_PROD_PORT bash -s < scripts/update_images.sh "latest"
+
+workflows:
+  version: 2
+
+  build-and-deploy:
+    jobs:
+      - test
+      - build:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
+      - deploy-dev:
+          requires:
+            - build
+      - hold-prod:
+          type: approval
+          requires:
+            - deploy-dev
+      - deploy-prod:
+          requires:
+            - hold-prod

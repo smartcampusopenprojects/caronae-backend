@@ -1,0 +1,25 @@
+version: '2'
+
+services:
+  caronae-backend-tests:
+    image: caronae/backend
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    command: test
+    links:
+      - postgres-testing
+    volumes:
+      - ../:/var/www
+    environment:
+      - TESTING_DB_HOST=postgres-testing
+      - TESTING_DB_PORT=5432
+
+  postgres-testing:
+    image: postgres:9.6-alpine
+    hostname: postgres-testing
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_USER=caronae
+      - POSTGRES_DB=caronae_testing
